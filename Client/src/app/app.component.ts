@@ -10,5 +10,5 @@ import { FormsModule } from '@angular/forms';
   templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  title = 'Practice2';
+  title = 'ChatSignalR';
 }
