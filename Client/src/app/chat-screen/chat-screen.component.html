@@ -1,0 +1,50 @@
+<div class="flex justify-between p-5">
+  <h2 class="font-bold leading-snug tracking-normal text-white mx-auto my-6 w-full text-2xl lg:max-w-3xl lg:text-4xl">
+    It's a pleasure to see you again
+    <br />
+    <span class="text-green-500"> {{ name }} !!</span>
+  </h2>
+  <div class="container space-y-2 mx-auto w-[24rem]">
+    <div class="flex justify-between">
+      <div>
+        <p class="text-white">Receiver:</p>
+        <select class="bg-gray-700 text-white w-[24rem]" id="" (input)="HandleUserChage($event)">
+          <option value="" selected>Select User</option>
+          @for(user of chatService.users;track $index){
+          <option [value]="user.id">
+            {{ user.name }}
+          </option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="flex flex-col justify-between border border-slate-500 h-[46rem] rounded-xl">
+      <div class="max-h-fit overflow-auto">
+        <img src="bg.png" class="bg-black rounded-t-xl absolute w-[23.9rem] h-[42rem] opacity-90 -z-10" alt="image" />
+        <div id="messageList" class="flex p-3 space-y-2 flex-col w-full h-[40rem]">
+          <div *ngFor="let chat of chats" appScroll [ngClass]="{
+                  'self-end': chat.senderId == send,
+                  'self-start': chat.recieverId == rec,    
+                }" class="bg-green-500 max-w-[7rem] break-words px-3 py-1 rounded-xl z-40 messageItem">
+            <p>{{ chat.Message }}</p>
+            <p class="text-end text-[0.6rem]">{{ formatDate(chat.ts) }}</p>
+          </div>
+        </div>
+      </div>
+      <form class="w-full flex space-x-2 mt-2space-x-2 p-3 bg-gray-700 rounded-b-xl">
+        <input type="text" name="message" placeholder="Enter message..."
+          class="w-3/4 bg-gray-200 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-green-600 p-1 rounded-lg"
+          id="messageInput" [(ngModel)]="message" />
+        <button [disabled]="!rec || !message" (click)="sendMessage()" [ngClass]="{ 'opacity-20': !rec || !message }"
+          type="submit" class="bg-green-500 drop-shadow-2xl font-semibold p-2 w-1/4 rounded-3xl hover:bg-green-600">
+          Send
+        </button>
+      </form>
+    </div>
+    <button (click)="AS.Logout()"
+      class="rounded-md w-[24rem] bg-red-500 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-slate-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+      type="button">
+      Logout
+    </button>
+  </div>
+</div>

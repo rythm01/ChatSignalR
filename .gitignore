@@ -1,0 +1,7 @@
+packages
+Migrations
+appsettings.json
+bin
+obj
+.vs
+.config
